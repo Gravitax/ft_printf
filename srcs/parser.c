@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:33:31 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/06 19:07:58 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/06 19:10:28 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void		pf_parsing(const char *format, va_list list, int *i, int *res)
 {
-	while (format[*i] && !pf_isspace(format[*i]))
-		++(*i);
+    (void)format;
 	(void)list;
+    (void)i;
 	(void)res;
 }
 
@@ -32,8 +32,9 @@ int				pf_parser(const char *format, va_list list)
 		if (format[i] == '%')
 		{
 			++i;
+            ++result;
 			if (!format[i])
-				return (++result);
+				break ;
 			else
 				pf_parsing(format, list, &i, &result);
 		}
