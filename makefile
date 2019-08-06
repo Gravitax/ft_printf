@@ -6,7 +6,7 @@
 #    By: maboye <maboye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/31 12:01:33 by maboye            #+#    #+#              #
-#    Updated: 2019/08/06 17:11:08 by maboye           ###   ########.fr        #
+#    Updated: 2019/08/06 18:49:12 by maboye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ OBJDIR	=	./obj
 # src / obj files
 SRC		=	check.c \
 			ft_printf.c \
+			parser.c \
 			tools.c \
 			utils.c \
 			write.c
@@ -56,9 +57,6 @@ $(OBJDIR)/%.o:$(SRCDIR)/%.c $(HEADER)
 			@echo "${TUR}compiling [$@] ...${END}"
 			@$(CC) $(CFLAGS) -I $(INCDIR) -c -o $@ $<
 			@printf "$(UP)$(CUT)"
-
-$(FT_LIB):
-			@$(MAKE) -C $(FT)
 
 $(NAME):	$(OBJ)
 			@ar rcs $(NAME) $(OBJ)

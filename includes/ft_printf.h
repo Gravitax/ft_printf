@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:09:51 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/06 17:15:26 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/06 19:04:38 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 // https://cdn.intra.42.fr/pdf/pdf/20/ft_printf.fr.pdf
+// https://github.com/mpaland/printf/blob/master/printf.c
 // https://github.com/pbondoer/42-ft_printf
 // https://www.ljll.math.upmc.fr/courscpp/Sections/Sect06-G1.html
 // https://www.ibisc.univ-evry.fr/~petit/Enseignement/Modelisation-en-C/printf-conversions-format.pdf
@@ -26,18 +27,28 @@
 # include <string.h>
 # include <unistd.h>
 
+# define NONE	0
+# define HASH	1
+# define ZERO	2
+# define LESS	4
+# define MORE	8
+# define SPC	16
+# define ASTE	32 // asterisk
+# define DOLL	64
+# define APOST	128 // apostrophe
+
 typedef struct	s_string
 {
 	const char	*str;
 	size_t		length;
 }				t_string;
 
-typedef struct	s_args
+typedef struct	s_list
 {
 	size_t		pos;
 	size_t		length;
 	t_string	str;
-}				t_args;
+}				t_list;
 
 typedef struct	s_printf
 {
@@ -48,11 +59,21 @@ typedef struct	s_printf
 	int			precision;
 	int			error;
 	char		conversion;
-	void		*value;
 	t_string	str;
 }				t_printf;
 
+typedef enum	e_flags
+{
+	NO,
+	L,
+	LL,
+	H,
+	HH,
+}				t_flags;
+
 int				ft_printf(const char *format, ...);
+
+int				pf_parser(const char *format, va_list list);
 
 int				pf_atoi(const char *str);
 int				pf_get_base(char c);
