@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:33:31 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/06 19:05:34 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/06 19:07:58 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int				pf_parser(const char *format, va_list list)
 				pf_parsing(format, list, &i, &result);
 		}
 		else
+        {
 			write(1, &format[i++], 1);
-		++result;
+		    ++result;
+        }
 	}
 	return (result);
 }
