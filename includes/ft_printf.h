@@ -52,14 +52,12 @@ typedef struct	s_list
 
 typedef struct	s_printf
 {
-	int			access;
 	int			flags;
-	int			width;
-	int			w_access;
-	int			precision;
-	int			error;
+	int			i_conv;
 	char		conversion;
-	t_string	str;
+	size_t		precision;
+	size_t		width;
+	va_list		list;
 }				t_printf;
 
 typedef enum	e_flags
@@ -73,7 +71,8 @@ typedef enum	e_flags
 
 int				ft_printf(const char *format, ...);
 
-int				pf_parser(const char *format, va_list list);
+void            pf_handler(t_printf *data);
+int				pf_parser(const char *format, t_printf *data);
 
 int				pf_atoi(const char *str);
 int				pf_get_base(char c);

@@ -35,6 +35,7 @@ OBJDIR	=	./obj
 # src / obj files
 SRC		=	check.c \
 			ft_printf.c \
+			handler.c \
 			parser.c \
 			tools.c \
 			utils.c \

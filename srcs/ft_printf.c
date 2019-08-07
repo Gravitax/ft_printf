@@ -14,11 +14,15 @@
 
 int				ft_printf(const char *format, ...)
 {
-	va_list	list;
-	int		result;
+	t_printf	*data;
+	int			result;
 
-	va_start(list, format);
-	result = pf_parser(format, list);
-	va_end(list);
+	if (!(data = pf_memalloc(sizeof(data))))
+		return (-1);
+	va_start(data->list, format);
+	result = pf_parser(format, data);
+	va_end(data->list);
+	free(data);
+	data = NULL;
 	return (result);
 }

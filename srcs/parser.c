@@ -12,15 +12,16 @@
 
 #include "../includes/ft_printf.h"
 
-static void		pf_parsing(const char *format, va_list list, int *i, int *res)
+static void		pf_parsing(const char *format, t_printf *data, int *i, int *res)
 {
     (void)format;
-	(void)list;
+	(void)data;
     (void)i;
 	(void)res;
+	pf_handler(data);
 }
 
-int				pf_parser(const char *format, va_list list)
+int				pf_parser(const char *format, t_printf *data)
 {
 	int	result;
 	int	i;
@@ -36,7 +37,7 @@ int				pf_parser(const char *format, va_list list)
 			if (!format[i])
 				break ;
 			else
-				pf_parsing(format, list, &i, &result);
+				pf_parsing(format, data, &i, &result);
 		}
 		else
         {
