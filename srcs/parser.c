@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-static void		parse_flag(const char *format, t_printf *data, int *i, int *res)
+static void		pf_parse_flag(const char *format, t_printf *data, int *i, int *res)
 {
 	(void)res;
 	while (pf_is_flag(format[*i]))
@@ -39,7 +39,7 @@ static void		parse_flag(const char *format, t_printf *data, int *i, int *res)
 
 }
 
-static void		parse_width(const char *format, t_printf *data, int *i, int *res)
+static void		pf_parse_width(const char *format, t_printf *data, int *i, int *res)
 {
 //if the value is more than INT MAX it is left at the value of INT_MAX and not changed further
 	long long	width;
@@ -55,7 +55,7 @@ static void		parse_width(const char *format, t_printf *data, int *i, int *res)
 	data->width = width;
 }	
 
-static void		parse_precision(const char *format, t_printf *data, int *i, int *res)
+static void		pf_parse_precision(const char *format, t_printf *data, int *i, int *res)
 {
 //if the value is more than INT MAX it is left at the value of INT_MAX and not changed further
 	long long	precision;
@@ -75,7 +75,7 @@ static void		parse_precision(const char *format, t_printf *data, int *i, int *re
 	}
 }	
 
-static void		parse_size(const char *format, t_printf *data, int *i, int *res)
+static void		pf_parse_size(const char *format, t_printf *data, int *i, int *res)
 {
 	(void)res;
 	if (format[*i] == 'l' || format[*i] == 'h' || format [*i] == 'L')
@@ -94,7 +94,7 @@ static void		parse_size(const char *format, t_printf *data, int *i, int *res)
 
 }	
 
-static void		validate_flags(t_printf *data, int *res)
+static void		pf_validate_flags(t_printf *data, int *res)
 {
 	(void)res;
 	if (data->flags & (1<<HASH_BIT) && (data->conversion == 'c' || data->conversion == 'd' ||
@@ -109,14 +109,14 @@ static void		validate_flags(t_printf *data, int *res)
 			data->conversion == 'o' || data->conversion == 'o') &&
 			data->precision >= 0) // >= !!! initialize precision to -1
 		printf("Invalid according to the last flag check\n");//exit
-	if ((data->flags & (1<<APOST_BIT)) && (data->conversion != 'i' || data->conversion != 'u' ||
-			data->conversion != 'd' || data->conversion != 'f')) 
+	if ((data->flags & (1<<APOST_BIT)) && (data->conversion != 'u' &&
+			data->conversion != 'd' && data->conversion != 'f')) 
 		printf("Invalid according to the last flag check\n");//exit
 
 
 }
 
-static void		parse_conversion(const char *format, t_printf *data, int *i, int *res)
+static void		pf_parse_conversion(const char *format, t_printf *data, int *i, int *res)
 {
 	(void)res;
 	if ((format[*i] == 'd' || format[*i] == 'i' || format[*i] == 'o' ||
@@ -130,17 +130,17 @@ static void		parse_conversion(const char *format, t_printf *data, int *i, int *r
 		data->conversion = format[(*i)++];
 	else
 		printf("conversion is not valid\n"); //exit
-	validate_flags(data, res);
+	pf_validate_flags(data, res);
 }
 
 static void		pf_parsing(const char *format, t_printf *data, int *i, int *res)
 {
 	data->precision = -1;
-	parse_flag(format, data, i, res);
-	parse_width(format, data, i, res);
-	parse_precision(format, data, i, res);
-	parse_size(format, data, i, res);
-	parse_conversion(format, data, i, res);
+	pf_parse_flag(format, data, i, res);
+	pf_parse_width(format, data, i, res);
+	pf_parse_precision(format, data, i, res);
+	pf_parse_size(format, data, i, res);
+	pf_parse_conversion(format, data, i, res);
 	pf_handler(data);
 }
 
