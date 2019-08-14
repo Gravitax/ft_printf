@@ -30,6 +30,8 @@ static void		parse_flag(const char *format, t_printf *data, int *i, int *res)
 				data->flags += MORE;
 		else if ((format[*i] == ' ') && !(data->flags & (1<<SPC_BIT)))
 				data->flags += SPC;
+		else if ((format[*i] == 39) && !(data->flags & (1<<APOST_BIT)))
+				data->flags += APOST;
 		else
 			printf("will add EXIT\n");//res -1 instead of exit?
 		(*i)++;
@@ -107,6 +109,9 @@ static void		validate_flags(t_printf *data, int *res)
 			data->conversion == 'o' || data->conversion == 'o') &&
 			data->precision >= 0) // >= !!! initialize precision to -1
 		printf("Invalid according to the last flag check\n");//exit
+	if ((data->flags & (1<<APOST_BIT)) && (data->conversion != 'i' || data->conversion != 'u' ||
+			data->conversion != 'd' || data->conversion != 'f')) 
+		printf("Invalid according to the last flag check\n");//exit
 
 
 }
@@ -151,20 +156,25 @@ int				pf_parser(const char *format, t_printf *data)
 		if (format[i] == '%')
 		{
 			++i;
-            ++result;
+            		++result;
 			if (!format[i])
 				break ;
+			else if (format[i] == '%')
+			{
+				write(1, &format[i++], 1);
+				++result;
+			}
 			else
 				pf_parsing(format, data, &i, &result);
 		}
 		else
-        {
+        	{
 			write(1, &format[i++], 1);
 		    ++result;
-        }
+       		 }
 	}
-//	int u = 123;
-//	printf("\n\n Testing: %d\n", u);
+	int u = 123;
+	printf("\n\n Testing: %'d", u);
 	printf("flags value is %d\n", data->flags);
 	printf("final width is: %ld\n", data->width);
 	printf("final precision is: %d\n", data->precision);

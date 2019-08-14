@@ -24,7 +24,7 @@ int				pf_is_modifier(const char c)
 
 int				pf_is_flag(const char c)
 {
-	return (pf_strchr("#0-+ ", c) != NULL);
+	return (pf_strchr("'#0-+ ", c) != NULL);
 }
 
 int				pf_is_precision(const char c)
