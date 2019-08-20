@@ -29,21 +29,13 @@
 
 # define NONE	0
 # define HASH	1
-# define HASH_BIT 0
 # define ZERO	2
-# define ZERO_BIT 1
 # define LESS	4
-# define LESS_BIT 2
 # define MORE	8
-# define MORE_BIT 3
 # define SPC	16
-# define SPC_BIT 4
 # define ASTE	32 // asterisk
-# define ASTE_BIT 5
 # define DOLL	64
-# define DOLL_BIT 6
 # define APOST	128 // apostrophe
-# define APOST_BIT 7
 
 typedef struct	s_string
 {
@@ -82,6 +74,13 @@ int				ft_printf(const char *format, ...);
 
 void            pf_handler(t_printf *data);
 int				pf_parser(const char *format, t_printf *data);
+//void		pf_validate_flags(t_printf *data, int *res);
+//void		pf_parse_flag(const char *format, t_printf *data, int *i, int *res);
+//void		pf_parse_width(const char *format, t_printf *data, int *i, int *res);
+//void		pf_parse_precision(const char *format, t_printf *data, int *i, int *res);
+//void		pf_parse_size(const char *format, t_printf *data, int *i, int *res);
+//void		pf_parse_conversion(const char *format, t_printf *data, int *i, int *res);
+
 
 int				pf_atoi(const char *str);
 int				pf_get_base(char c);

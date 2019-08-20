@@ -20,17 +20,17 @@ static void		pf_parse_flag(const char *format, t_printf *data, int *i, int *res)
 		//exit if the same flag is set multiple times
 		//add other flags
 		printf("flag symbol %c\n", format[*i]);
-		if ((format[*i] == '#') && !(data->flags & (1<<HASH_BIT)))
+		if ((format[*i] == '#') && !(data->flags & HASH))
 				data->flags += HASH;
-		else if ((format[*i] == '0') && !(data->flags & (1<<ZERO_BIT)))
+		else if ((format[*i] == '0') && !(data->flags & ZERO))
 				data->flags += ZERO;
-		else if ((format[*i] == '-') && !(data->flags & (1<<LESS_BIT)))
+		else if ((format[*i] == '-') && !(data->flags & LESS))
 				data->flags += LESS;
-		else if ((format[*i] == '+') && !(data->flags & (1<<MORE_BIT)))
+		else if ((format[*i] == '+') && !(data->flags & MORE))
 				data->flags += MORE;
-		else if ((format[*i] == ' ') && !(data->flags & (1<<SPC_BIT)))
+		else if ((format[*i] == ' ') && !(data->flags & SPC))
 				data->flags += SPC;
-		else if ((format[*i] == 39) && !(data->flags & (1<<APOST_BIT)))
+		else if ((format[*i] == 39) && !(data->flags & APOST))
 				data->flags += APOST;
 		else
 			printf("will add EXIT\n");//res -1 instead of exit?
@@ -97,19 +97,19 @@ static void		pf_parse_size(const char *format, t_printf *data, int *i, int *res)
 static void		pf_validate_flags(t_printf *data, int *res)
 {
 	(void)res;
-	if (data->flags & (1<<HASH_BIT) && (data->conversion == 'c' || data->conversion == 'd' ||
+	if ((data->flags & HASH) && (data->conversion == 'c' || data->conversion == 'd' ||
 				data->conversion == 'i' || data->conversion == 'u' ||
 				data->conversion == 's'))
 		printf("Invalid according to the last flag check\n");//exit
-	if (((data->flags & (1<<ZERO_BIT)) && (data->flags & (1<<LESS_BIT))) || 
-		       ((data->flags & (1<<SPC_BIT)) && (data->flags & (1<<MORE_BIT))))	
+	if (((data->flags & ZERO) && (data->flags & LESS)) || 
+		       ((data->flags & SPC) && (data->flags & MORE)))	
 		printf("Invalid according to the last flag check\n");//exit
-	if ((data->flags & (1<<ZERO_BIT)) && (data->conversion == 'i' || data->conversion == 'u' ||
+	if ((data->flags & ZERO) && (data->conversion == 'i' || data->conversion == 'u' ||
 			data->conversion == 'x' || data->conversion == 'X' ||
 			data->conversion == 'o' || data->conversion == 'o') &&
 			data->precision >= 0) // >= !!! initialize precision to -1
 		printf("Invalid according to the last flag check\n");//exit
-	if ((data->flags & (1<<APOST_BIT)) && (data->conversion != 'u' &&
+	if ((data->flags & APOST) && (data->conversion != 'u' &&
 			data->conversion != 'd' && data->conversion != 'f')) 
 		printf("Invalid according to the last flag check\n");//exit
 
