@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:33:31 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/22 18:43:46 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 18:46:22 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void		pf_parse_size(const char *format, t_printf *data, int *i)
 
 static void		pf_validate_flags(t_printf *data)
 {
-	if ((data->flags & HASH) && pf_Strchr("cdius", data->conversion))
+	if ((data->flags & HASH) && pf_strchr("cdius", data->conversion))
 		printf("Invalid according to the last flag check\n");//exit
 	if (((data->flags & ZERO) && (data->flags & LESS))
 	|| ((data->flags & SPC) && (data->flags & MORE)))
