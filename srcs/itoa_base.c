@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:44 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/21 15:43:28 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 17:51:32 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		urecursion(uintmax_t nb, int b, char *str, int *i)
 {
 	char const	base[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	if (nb <= -b || b <= nb)
+	if (nb <= (uintmax_t)-b || (uintmax_t)b <= nb)
 		recursion(nb / b, b, str, i);
 	str[(*i)++] = base[nb % b];
 }

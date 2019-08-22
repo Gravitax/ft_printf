@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:51:21 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/21 18:55:59 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 17:48:02 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int             main(int ac, char **av)
         result = ft_printf(av[1]);
         write(1, "\n", 1);
     }
-    printf("%.s\n", "abc");
+    printf("%p\n", &result);
     printf("so: int %lu, so: intmax: %lu", sizeof(int), sizeof( uintmax_t));
     printf("\nresult: %d\n", result);
     return (0);

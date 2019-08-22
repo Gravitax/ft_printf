@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 17:08:55 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/20 18:41:46 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 17:51:19 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int				pf_is_precision(const char c)
 int				pf_is_valid(const char c)
 {
 	return (pf_is_conversion(c) || pf_is_modifier(c) || pf_is_flag(c)
-		|| pf_isdigit(c) || pf_is_precision(c));
+			|| pf_isdigit(c) || pf_is_precision(c));
 }

@@ -6,7 +6,7 @@
 #    By: maboye <maboye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/31 12:01:33 by maboye            #+#    #+#              #
-#    Updated: 2019/08/21 13:43:48 by maboye           ###   ########.fr        #
+#    Updated: 2019/08/22 17:43:13 by maboye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC		=	buffer.c \
 			itoa_base.c \
 			parser.c \
 			tools.c \
+			type.c \
 			utils.c
 INC		=	ft_printf.h
 

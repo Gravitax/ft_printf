@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:47:26 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/21 13:32:13 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 17:51:51 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ intmax_t		pf_abs(intmax_t nb)
 	return (nb < 0 ? -nb : nb);
 }
 
-int				pf_get_base(char c)
-{
-	if (c == 'X' || c == 'x' || c == 'p')
-		return (16);
-	else if (c == 'o')
-		return (8);
-	else
-		return (10);
-}
+// int				pf_get_base(char c)
+// {
+// 	if (c == 'X' || c == 'x' || c == 'p')
+// 		return (16);
+// 	else if (c == 'o')
+// 		return (8);
+// 	else
+// 		return (10);
+// }
 
 int				pf_isdigit(int c)
 {

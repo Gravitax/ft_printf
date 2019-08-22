@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:50:48 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/21 18:47:01 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 17:51:42 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ intmax_t		pf_intlen(intmax_t nb)
 	int		i;
 
 	i = 0;
-    nb = nb < 0 ? -nb : nb;
+	nb = nb < 0 ? -nb : nb;
 	while (nb >= 10)
 	{
 		++i;
@@ -66,8 +66,8 @@ char			*pf_strchr(const char *s, int c)
 			return ((char *)s);
 		s++;
 	}
-//	if ((char)c == '\0')
-//		return ((char *)s);
+	//	if ((char)c == '\0')
+	//		return ((char *)s);
 	return (NULL);
 }
 
