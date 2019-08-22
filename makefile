@@ -6,7 +6,7 @@
 #    By: maboye <maboye@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/31 12:01:33 by maboye            #+#    #+#              #
-#    Updated: 2019/08/22 17:43:13 by maboye           ###   ########.fr        #
+#    Updated: 2019/08/22 23:39:27 by maboye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJDIR	=	./obj
 
 # src / obj files
 SRC		=	buffer.c \
-			check.c \
+			float.c \
 			ft_printf.c \
 			handler.c \
 			itoa_base.c \

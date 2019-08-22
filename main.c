@@ -6,27 +6,29 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:51:21 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/22 17:48:02 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 23:35:51 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-// make && gcc main.c libftprintf.a -o ft_printf
-// ./ft_printf "test"
-
 int             main(int ac, char **av)
 {
     int     result;
 
-    result = 0;
-    if (ac == 2 && av[1])
-    {
-        result = ft_printf(av[1]);
-        write(1, "\n", 1);
-    }
-    printf("%p\n", &result);
-    printf("so: int %lu, so: intmax: %lu", sizeof(int), sizeof( uintmax_t));
-    printf("\nresult: %d\n", result);
+    //result = printf("pf: %d\n", atoi(av[1]));
+    //result = printf("pf:%10dabc%dabc\n", atoi(av[1]), 456);
+    result = printf("pf:%10sabc%.sabc\n", av[1], av[1]);
+    //result = printf("ft: %x\n", 5000138);
+    //result = printf("ft: %p\n", &result);
+    printf("result: %d\n", result);
+    //printf("%p\n", &result);
+    //printf("so: int %lu, so: intmax: %lu\n", sizeof(int), sizeof(uintmax_t));
+    //result = ft_printf("my: %d\n", atoi(av[1]));
+    //result = ft_printf("my:%10dabc%dabc\n", atoi(av[1]), 456);
+    result = ft_printf("my:%10sabc%.sabc\n", av[1], av[1]);
+    //result = ft_printf("my: %x\n", 5000138);
+    //result = ft_printf("my: %p\n", &result);
+    printf("result: %d\n", result);
     return (0);
 }

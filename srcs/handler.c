@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:51:38 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/22 17:53:15 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 23:33:58 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,35 @@ void				pf_handle_width(t_printf *data)
 
 	c = (data->flags & ZERO ? '0' : ' ');
 	width = data->width;
-	while (width-- > data->precision + data->len)
-		pf_buffer(data, c);
+	if (data->p_token)
+	{
+		while (width-- > data->precision)
+			pf_buffer(data, c);
+	}
+	else
+	{
+		while (width-- > data->len)
+			pf_buffer(data, c);
+	}
 }
 
 void				pf_handle_precision(t_printf *data)
 {
 	int		precision;
 
-	precision = data->precision;
-	while (precision-- > data->len)
-		pf_buffer(data, '0');
+	if (data->p_token && data->conversion != 's')
+	{
+		precision = data->precision;
+		while (precision-- > data->len)
+			pf_buffer(data, '0');
+	}
 }
 
 void				pf_handle_flag(t_printf *data)
 {
 	if ((data->flags & SPC) && data->width < 1)
 		pf_buffer(data, ' ');
-	if (data->flags & HASH)
+	if (data->flags & HASH || data->conversion == 'p')
 	{
 		if (pf_strchr("xXo", data->conversion))
 		{
@@ -44,6 +55,8 @@ void				pf_handle_flag(t_printf *data)
 			if (data->conversion != 'o')
 				pf_buffer(data, data->conversion == 'x' ? 'x' : 'X');
 		}
+		else if (data->conversion == 'p')
+			pf_bufferstr(data, "0x");
 	}
 }
 
@@ -53,11 +66,10 @@ void				pf_handler(t_printf *data)
 	if (data->width <= data->len)
 		data->width = 0;
 	if ((data->precision <= data->len) && data->conversion != 's')
-		data->precision = 0;
-	if (!(data->flags & LESS))
+		data->precision = data->len;
+	if (!(data->flags & LESS) && data->width > data->len)
 		pf_handle_width(data);
-	if (data->conversion != 's')
-		pf_handle_precision(data);
+	pf_handle_precision(data);
 	pf_handle_flag(data);
 	pf_bufferstr(data, data->str);
 	if (data->flags & LESS)

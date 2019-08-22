@@ -6,21 +6,14 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:57:34 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/22 17:54:22 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 23:40:53 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static void			pf_handle_float(t_printf *data)
-{
-	(void)data;
-}
-
 static void			pf_handle_base(t_printf *data, intmax_t nb)
 {
-	int		i;
-
 	if (data->conversion == 'c')
 	{
 		data->str = (char *)malloc(sizeof(char) * 2);
@@ -32,22 +25,10 @@ static void			pf_handle_base(t_printf *data, intmax_t nb)
 	else if (data->conversion == 'x')
 	{
 		data->str = ft_itoa_base(nb, 16);
-		i = -1;
-		while (data->str && data->str[++i])
-		{
-			if (data->str[i] >= 'A' && data->str[i] <= 'Z')
-				data->str[i] += 32;
-		}
+		pf_strtolower(data->str);
 	}
 	else
 		data->str = ft_itoa_base(nb, 10);
-}
-
-static inline void	pf_handle_string(t_printf *data)
-{
-	data->str = va_arg(data->list, char *);
-	if (!data->str)
-		data->str = data->precision > 0 ? "(null)" : "";
 }
 
 static void			pf_unsigned_type(t_printf *data)
@@ -65,6 +46,23 @@ static void			pf_unsigned_type(t_printf *data)
 	else if (data->i_conv == H)
 		nb = (unsigned short)nb;
 	data->str = ft_uitoa_base(nb, data->conversion == 'o' ? 8 : 10);
+}
+
+static inline void	pf_handle_string(t_printf *data)
+{
+	data->str = va_arg(data->list, char *);
+	if (!data->str)
+	{
+		data->str = data->precision > 0 ? "(null)" : "";
+		data->precision = -1;
+		data->p_token = 0;
+	}
+}
+
+static inline void	pf_handle_pointer(t_printf *data)
+{
+	data->str = ft_itoa_base((intmax_t)va_arg(data->list, void *), 16);
+	pf_strtolower(data->str);
 }
 
 void				pf_get_type(t_printf *data)
@@ -90,7 +88,7 @@ void				pf_get_type(t_printf *data)
 	else if (data->conversion == 'o' || data->conversion == 'u')
 		pf_unsigned_type(data);
 	else if (data->conversion == 'p')
-		data->str = ft_itoa_base((intmax_t)va_arg(data->list, void *), 16);
+		pf_handle_pointer(data);
 	else if (data->conversion == 's')
 		pf_handle_string(data);
 	data->len = pf_strlen(data->str, 0);

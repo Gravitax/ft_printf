@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:33:31 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/22 18:46:22 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 23:05:18 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static void		pf_parse_flag(const char *format, t_printf *data, int *i)
 {
-	while (pf_is_flag(format[*i]))
+	while (pf_strchr("'#0-+ ", format[*i]) != NULL)
 	{
-		printf("flag symbol: [%c]\n", format[*i]);
 		if ((format[*i] == '#') && !(data->flags & HASH))
 			data->flags += HASH;
 		else if ((format[*i] == '0') && !(data->flags & ZERO))
@@ -30,7 +29,7 @@ static void		pf_parse_flag(const char *format, t_printf *data, int *i)
 		else if ((format[*i] == 39) && !(data->flags & APOST))
 			data->flags += APOST;
 		else
-			printf("will add EXIT\n");//res -1 instead of exit?
+			printf("will add EXIT\n");
 		(*i)++;
 	}
 }
@@ -39,8 +38,6 @@ static void		pf_parse_width(const char *format, t_printf *data, int *i)
 {
 	long long	width;
 
-	//if value > INT MAX
-	//it is left at the value of INT_MAX and not changed further
 	width = 0;
 	while (pf_isdigit(format[*i]) && width <= 2147483647)
 	{
@@ -56,8 +53,6 @@ static void		pf_parse_precision(const char *format, t_printf *data, int *i)
 {
 	long long	precision;
 
-	//if value > INT MAX
-	//it is left at the value of INT_MAX and not changed further
 	if (format[*i] == '.')
 	{
 		(*i)++;
@@ -70,6 +65,7 @@ static void		pf_parse_precision(const char *format, t_printf *data, int *i)
 		if (precision > 2147483647)
 			precision = 2147283647;
 		data->precision = precision;
+		data->p_token = 1;
 	}
 }
 
@@ -93,16 +89,16 @@ static void		pf_parse_size(const char *format, t_printf *data, int *i)
 static void		pf_validate_flags(t_printf *data)
 {
 	if ((data->flags & HASH) && pf_strchr("cdius", data->conversion))
-		printf("Invalid according to the last flag check\n");//exit
+		printf("Invalid according to the last flag check\n");
 	if (((data->flags & ZERO) && (data->flags & LESS))
 	|| ((data->flags & SPC) && (data->flags & MORE)))
-		printf("Invalid according to the last flag check\n");//exit
+		printf("Invalid according to the last flag check\n");
 	if (data->precision >= 0 && (data->flags & ZERO)
-	&& pf_strchr("iouxX", data->conversion)) // >= !!! precision = -1
-		printf("Invalid according to the last flag check\n");//exit
+	&& pf_strchr("iouxX", data->conversion))
+		printf("Invalid according to the last flag check\n");
 	if ((data->flags & APOST) && (data->conversion != 'u'
 	&& data->conversion != 'd' && data->conversion != 'f'))
-		printf("Invalid according to the last flag check\n");//exit
+		printf("Invalid according to the last flag check\n");
 }
 
 static void		pf_parse_conversion(const char *format, t_printf *data, int *i)
@@ -115,13 +111,14 @@ static void		pf_parse_conversion(const char *format, t_printf *data, int *i)
 	else if (format[*i] == 'c' || format[*i] == 's' || format[*i] == 'p')
 		data->conversion = format[(*i)++];
 	else
-		printf("conversion is not valid\n"); //exit
+		printf("conversion is not valid\n");
 	pf_validate_flags(data);
 }
 
 static void		pf_parsing(const char *format, t_printf *data, int *i)
 {
 	data->precision = -1;
+	data->p_token = 0;
 	pf_parse_flag(format, data, i);
 	pf_parse_width(format, data, i);
 	pf_parse_precision(format, data, i);
@@ -129,6 +126,16 @@ static void		pf_parsing(const char *format, t_printf *data, int *i)
 	pf_parse_conversion(format, data, i);
 	pf_handler(data);
 }
+
+/*
+**	printf("\n------------------------------------\n");
+**	printf("flags value is 		 [%d]\n", data->flags);
+**	printf("final width is:		 [%d]\n", data->width);
+**	printf("final precision is:  [%d]\n", data->precision);
+**	printf("final size is:		 [%d]\n", data->i_conv);
+**	printf("final conversion is: [%c]\n", data->conversion);
+**	printf("------------------------------------\n");
+*/
 
 void			pf_parser(const char *format, t_printf *data)
 {
@@ -151,11 +158,4 @@ void			pf_parser(const char *format, t_printf *data)
 		else
 			pf_buffer(data, format[i++]);
 	}
-	printf("\n\n------------------------------------\n");
-	printf("flags value is 		 [%d]\n", data->flags);
-	printf("final width is:		 [%d]\n", data->width);
-	printf("final precision is:  [%d]\n", data->precision);
-	printf("final size is:		 [%d]\n", data->i_conv);
-	printf("final conversion is: [%c]\n", data->conversion);
-	printf("------------------------------------\n");
 }

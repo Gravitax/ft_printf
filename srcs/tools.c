@@ -6,32 +6,11 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:50:48 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/22 17:51:42 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 22:37:50 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-int				pf_atoi(const char *str, int x)
-{
-	int			signe;
-	long long	entier;
-
-	entier = 0;
-	while (pf_isspace(str[x]))
-		x++;
-	signe = (str[x] == '-') ? -1 : 1;
-	(str[x] == '-' || str[x] == '+') ? x++ : 0;
-	while (pf_isdigit(str[x]))
-	{
-		if (entier * signe > 2147483647)
-			return (-1);
-		if (entier * signe < -2147483648)
-			return (0);
-		entier = entier * 10 + (str[x++] - '0');
-	}
-	return ((int)entier * signe);
-}
 
 intmax_t		pf_intlen(intmax_t nb)
 {
@@ -66,23 +45,8 @@ char			*pf_strchr(const char *s, int c)
 			return ((char *)s);
 		s++;
 	}
-	//	if ((char)c == '\0')
-	//		return ((char *)s);
 	return (NULL);
 }
-
-// char			*pf_strdup(const char *src)
-// {
-// 	char	*copy;
-// 	char	*tmp;
-
-// 	if (!(copy = (char *)malloc(sizeof(char) * (pf_strlen(src, 0) + 1))))
-// 		return (NULL);
-// 	tmp = copy;
-// 	while ((*tmp++ = *src++) != 0)
-// 		;
-// 	return (copy);
-// }
 
 size_t			pf_strlen(const char *s, size_t max)
 {

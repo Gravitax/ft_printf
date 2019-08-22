@@ -6,22 +6,11 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:51:38 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/22 17:51:24 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 23:35:25 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-static void		pf_freestruct(t_printf *data)
-{
-	if (data->str)
-	{
-		free((void *)data->str);
-		data->str = NULL;
-	}
-	free((void *)data);
-	data = NULL;
-}
 
 int				ft_printf(const char *format, ...)
 {
@@ -37,6 +26,7 @@ int				ft_printf(const char *format, ...)
 	va_end(data->list);
 	pf_print_buffer(data, data->i);
 	result = data->count;
-	pf_freestruct(data);
+	free((void *)data);
+	data = NULL;
 	return (result);
 }

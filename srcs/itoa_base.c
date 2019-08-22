@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:44 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/22 17:51:32 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/22 23:37:30 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ char			*ft_itoa_base(intmax_t nb, int base)
 
 	if (base < 2 || 36 < base)
 		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char) * (sizeof(int) * 8 + 1))))
+	if (!(str = (char *)pf_memalloc(sizeof(char) * 32)))
 		return (NULL);
 	i = 0;
 	if (nb < 0)
 		str[i++] = '-';
 	recursion(nb, base, str, &i);
-	str[i] = '\0';
 	return (str);
 }
 
@@ -54,10 +53,9 @@ char			*ft_uitoa_base(uintmax_t nb, int base)
 
 	if (base < 2 || 36 < base)
 		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char) * (sizeof(int) * 8 + 1))))
+	if (!(str = (char *)pf_memalloc(sizeof(char) * 32)))
 		return (NULL);
 	i = 0;
 	urecursion(nb, base, str, &i);
-	str[i] = '\0';
 	return (str);
 }
