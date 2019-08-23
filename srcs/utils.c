@@ -29,9 +29,10 @@ int				pf_isspace(int c)
 
 void			pf_strtolower(char *str)
 {
-	while (str && *str++)
+	while (str && *str)
 	{
 		if (*str >= 'A' && *str <= 'Z')
 			*str += 32;
+		++str;
 	}
 }
