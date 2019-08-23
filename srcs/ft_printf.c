@@ -16,8 +16,6 @@ int				ft_printf(const char *format, ...)
 {
 	t_printf	data;
 
-	if (B_SIZE < 500)
-		exit(EXIT_FAILURE);
 	pf_memset(&data, 0, sizeof(t_printf));
 	va_start(data.list, format);
 	pf_parser(format, &data);

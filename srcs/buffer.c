@@ -20,7 +20,8 @@ void				pf_print_buffer(t_printf *data, int len)
 		write(1, data->buf, len);
 	size = B_SIZE;
 	while (size-- > 0)
-		((unsigned char *)data->buf)[size] = (unsigned char)0;
+		((char *)data->buf)[size] = (unsigned char)0;
+	data->i = 0;
 }
 
 static inline void	pf_handle_string(t_printf *data, char c)
@@ -44,10 +45,7 @@ void				pf_bufferstr(t_printf *data, char *str)
 	while (str && str[++i] && i < len)
 	{
 		if (data->i > B_SIZE - 1)
-		{
 			pf_print_buffer(data, B_SIZE);
-			data->i = 0;
-		}
 		if (data->conversion == 's')
 			pf_handle_string(data, str[i]);
 		else
@@ -59,10 +57,7 @@ void				pf_bufferstr(t_printf *data, char *str)
 void				pf_buffer(t_printf *data, char c)
 {
 	if (data->i > B_SIZE - 1)
-	{
 		pf_print_buffer(data, B_SIZE);
-		data->i = 0;
-	}
 	data->buf[data->i++] = c;
 	++data->count;
 }

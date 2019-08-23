@@ -32,15 +32,15 @@ void			*pf_memalloc(size_t size)
 
 	if (!(ptr = malloc(size)))
 		return (NULL);
-	while (size-- > 0)
+	while (size--)
 		((char *)ptr)[size] = (unsigned char)0;
 	return (ptr);
 }
 
 void			*pf_memset(void *ptr, int c, size_t len)
 {
-	while (len)
-		((char *)ptr)[len--] = (unsigned char)c;
+	while (len--)
+		((char *)ptr)[len] = (unsigned char)c;
 	return (ptr);
 }
 
