@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:44 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/26 19:40:05 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/27 17:15:45 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		recursion(intmax_t nb, int b, char *str, int *i)
 {
-	char const	base[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char const	base[] = "0123456789ABCDEF";
 
 	if (nb <= -b || b <= nb)
 		recursion(nb / b, b, str, i);
@@ -49,7 +49,7 @@ char			*ft_itoa_base(t_printf *data, intmax_t nb, int base)
 
 static void		urecursion(uintmax_t nb, unsigned int b, char *str, int *i)
 {
-	char const	base[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char const	base[] = "0123456789ABCDEF";
 
 	if (b <= nb)
 		urecursion(nb / b, b, str, i);

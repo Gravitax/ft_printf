@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:50:48 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/27 15:04:50 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/27 17:18:26 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ char			*pf_strdup(const char *src)
 		return (NULL);
 	s = ret;
 	while (src && *src)
-		*s++ = *src++;
+	{
+		*s = *src;
+		++s;
+		++src;
+	}
 	return (ret);
 }
 

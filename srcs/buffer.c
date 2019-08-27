@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 18:03:34 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/26 19:52:32 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/27 17:19:50 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void			pf_print_buffer(t_printf *data, int len)
 {
-	if (data->i)
+	if (data->i > 0)
 		write(1, data->buf, len);
-	len = B_SIZE;
-	while (len-- > 0)
-		((char *)data->buf)[len] = (unsigned char)0;
+	pf_memset(data->buf, 0, B_SIZE);
 	data->i = 0;
 }
 

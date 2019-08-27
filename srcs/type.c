@@ -6,26 +6,11 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 14:57:34 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/27 15:25:22 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/27 17:24:49 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
-static void		pf_handle_base(t_printf *data, uintmax_t nb)
-{
-	if (data->conversion == 'o')
-		data->str = ft_uitoa_base(data, nb, 8);
-	else if (data->conversion == 'u')
-		data->str = ft_uitoa_base(data, nb, 10);
-	else if (data->conversion == 'x')
-	{
-		data->str = ft_uitoa_base(data, nb, 16);
-		pf_strtolower(data->str);
-	}
-	else if (data->conversion == 'X')
-		data->str = ft_uitoa_base(data, nb, 16);
-}
 
 static void		pf_handle_unsigned(t_printf *data)
 {
@@ -45,7 +30,14 @@ static void		pf_handle_unsigned(t_printf *data)
 		nb = (unsigned char)nb;
 	else if (data->i_conv == H)
 		nb = (unsigned short)nb;
-	pf_handle_base(data, nb);
+	if (data->conversion == 'o')
+		data->str = ft_uitoa_base(data, nb, 8);
+	else if (data->conversion == 'u')
+		data->str = ft_uitoa_base(data, nb, 10);
+	else
+		data->str = ft_uitoa_base(data, nb, 16);
+	if (data->conversion == 'x')
+		pf_strtolower(data->str);
 }
 
 static void		pf_handle_ps(t_printf *data, char c)
