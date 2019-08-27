@@ -19,12 +19,8 @@ static void			pf_handle_width(t_printf *data)
 
 	c = (data->flags & ZERO ? '0' : ' ');
 	width = data->width;
-	if (data->conversion == 's')
-		while (width-- > data->len)
-			pf_buffer(data, c);
-	else
-		while (width-- > data->precision)
-			pf_buffer(data, c);
+	while (width-- > data->precision)
+		pf_buffer(data, c);
 }
 
 static void			pf_handle_precision(t_printf *data)
@@ -81,6 +77,8 @@ static void			pf_refresh_data(t_printf *data)
 	{
 		if (data->p_token && data->len >= data->precision)
 			data->len = data->precision;
+		if (data->precision > data->len)
+			data->precision = data->len;
 	}
 	else if (data->conversion == 'c')
 	{
