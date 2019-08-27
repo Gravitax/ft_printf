@@ -24,9 +24,6 @@ static void			pf_handle_width(t_printf *data)
 		--width;
 	if (data->neg && data->flags & ZERO)
 		pf_buffer(data, '-');
-	if (((data->conversion == 'x' || data->conversion == 'X')
-	&& data->flags & HASH) || data->conversion == 'p')
-		width -= 2;
 	if (data->conversion == 's')
 		while (width-- > data->len)
 			pf_buffer(data, c);
@@ -61,12 +58,16 @@ static void			pf_handle_flag(t_printf *data)
 		if (data->conversion == 'o')
 		{
 			if (data->precision <= data->len)
+			{
 				pf_buffer(data, '0');
+				--data->width;
+			}
 		}
 		else if (pf_strchr("pxX", data->conversion))
 		{
 			pf_buffer(data, '0');
 			pf_buffer(data, data->conversion == 'X' ? 'X' : 'x');
+			data->width -= 2;
 		}
 	}
 }
@@ -87,9 +88,6 @@ static void			pf_refresh_data(t_printf *data)
 	}
 	else
 	{
-		if (data->flags & HASH && data->conversion == 'o'
-		&& data->precision <= data->len)
-			--data->width;
 		if (data->width < data->len)
 			data->width = 0;
 		if (data->precision < data->len)
