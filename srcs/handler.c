@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:51:38 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/27 17:33:47 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/27 17:34:54 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,5 @@ void				pf_handler(t_printf *data)
 	pf_bufferstr(data, data->str);
 	if (data->flags & LESS)
 		pf_handle_width(data);
-	free(data->str);
-	data->str = NULL;
+	free((void *)data->str);
 }
