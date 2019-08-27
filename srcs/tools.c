@@ -36,7 +36,7 @@ char			*pf_strchr(const char *ptr, int c)
 	{
 		if (*ptr == (char)c)
 			return ((char *)ptr);
-		ptr++;
+		++ptr;
 	}
 	return (NULL);
 }
