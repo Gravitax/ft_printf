@@ -6,7 +6,7 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:51:38 by maboye            #+#    #+#             */
-/*   Updated: 2019/08/27 17:30:04 by maboye           ###   ########.fr       */
+/*   Updated: 2019/08/27 17:33:47 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,11 @@ void				pf_handler(t_printf *data)
 {
 	pf_get_type(data);
 	pf_refresh_data(data);
-	if (data->flags & SPC)
-		if (data->neg == 0)
-		{
-			pf_buffer(data, ' ');
-			--data->width;
-		}
+	if (data->flags & SPC && data->neg == 0)
+	{
+		pf_buffer(data, ' ');
+		--data->width;
+	}
 	if (data->flags & ZERO)
 		pf_handle_flag(data);
 	if (!(data->flags & LESS))
