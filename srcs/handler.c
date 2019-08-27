@@ -19,11 +19,6 @@ static void			pf_handle_width(t_printf *data)
 
 	c = (data->flags & ZERO ? '0' : ' ');
 	width = data->width;
-	if ((data->neg || data->flags & MORE)
-	&& (data->conversion == 'd' || data->conversion == 'i'))
-		--width;
-	if (data->neg && data->flags & ZERO)
-		pf_buffer(data, '-');
 	if (data->conversion == 's')
 		while (width-- > data->len)
 			pf_buffer(data, c);
@@ -49,9 +44,15 @@ static void			pf_handle_flag(t_printf *data)
 	if (!pf_strchr("pouxX", data->conversion))
 	{
 		if (data->flags & MORE && !data->neg)
+		{
 			pf_buffer(data, '+');
-		if (data->neg && !(data->flags & ZERO))
+			--data->width;
+		}
+		if (data->neg)
+		{
 			pf_buffer(data, '-');
+			--data->width;
+		}
 	}
 	if (data->flags & HASH || data->conversion == 'p')
 	{
